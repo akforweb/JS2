@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+    min-width: 960px;
+    font-family:  'Georgia', serif;
+    font-size: 16px;
+    line-height: 32px;
+    color: #2C2C2B;
+    
+}
+
+.header-wrap {
+    display: flex;
+    justify-content: flex-end;
+    background: #F7F7F7;
+    padding: 20px;
+}
+
+.btn-cart {
+padding: 10px;
+background: #FFEC00;
+}
+
+.products-wrap {
+    max-width: 950px;
+    margin: 0 auto;
+   
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .product-item {
+    padding: 20px;
+    margin: 25px;
+    border: 1px solid #9C9C9A;
+    min-width: 100px;
+  }
