@@ -1,48 +1,88 @@
 class Product {
-    constructor(title, price, id = false) {
-        this.id = id;
+    constructor(product, img = 'https://placehold.it/150x100') {
+        let { title = 'Товар', price = 0, id } = product;
         this.title = title;
+        this.img = img;
         this.price = price;
+        this.id = id;
     }
 
-    renderProduct(title, price) {
-        document.querySelector('.products').innerHTML = `<div class="product-item">
-                <h3>${this.title}</h3>
-                <p>${this.price}</p>
-                </div>`;
+    render() {
+        return `<div class="product-item">
+                  <img src="${this.img}" alt="${this.title}">
+                  <div class="desc">
+                      <h3>${this.title}</h3>
+                      <p>${this.price}</p>
+                      <button class="buy-btn">Купить</button>
+                  </div>
+              </div>`
+    }
+
+}
+
+class ProductsList {
+    constructor(container = '.products') {
+        this.data = [];
+        this.products = [];
+        this.container = document.querySelector(container);
+        // this.calcPrice();
+        this._fetchData();
+        this._render();
+    }
+
+    calcPrice() {
+        let total = 0;
+        this.products.map((product) => {
+            console.log(total = total + product.price);
+        })
+        // for (let product of this.products) 
+        // let sum = 0;
+        // this.products.forEach.call(items, function (product) {
+        // sum += product.price;
+        // });
+        // как получить все цены я разобралась, а дальше что-то не понимаю как их сложить
+
+    }
+
+    _fetchData() {
+        this.data = [
+            { id: 1, title: 'Notebook', price: 2000 },
+            { id: 2, title: 'Keyboard', price: 200 },
+            { id: 3, title: 'Mouse', price: 100 },
+            { id: 4, title: 'Gamepad' },
+        ];
+    }
+
+    _render() {
+        for (let dataEl of this.data) {
+            const product = new Product(dataEl);
+            this.products.push(product);
+            this.container.insertAdjacentHTML('beforeend', product.render())
+        }
     }
 }
 
-const product1 = new Product('Notebook', 2000);
-product1.renderProduct('Notebook', 2000);
+const list = new ProductsList().calcPrice();
 
-const product2 = new Product('Keyboard', 200);
-product2.renderProduct('Keyboard', 200);
+class Cart {
+    constructor(product) {
+        // сюда будет попадать продукт
+    }
 
-const product3 = new Product('Mouse', 100);
-product3.renderProduct('Mouse', 100);
+    // createCartElem - метод будет создавать новый класс, в который будет копировать Product добавляя к нему метод удалить из корзины
 
-const product4 = new Product('Gamepad', 87);
-product4.renderProduct('Gamepad', 87);
+    // calcPrice - метод будет считать стоимость всех товаров в корзине
 
+    // showPrice - метод будет показывать стоимость всех товаров в корзине рядом с кнопкой Корзина, когда она закрыта
 
-// const products = [
-//     { id: 1, title: 'Notebook', price: 2000 },
-//     { id: 2, title: 'Keyboard', price: 200 },
-//     { id: 3, title: 'Mouse', price: 100 },
-//     { id: 4, title: 'Gamepad', price: 87 }
-// ];
+    // clearCart - метод будет очищать корзину
 
-// function renderProduct(title, price) {
-//     return `<div class="product-item">
-//     <h3>${title}</h3>
-//     <p>${price}</p>
-//     </div>`;
-// }
+    // openCart/closeCart - в методы будут добавлены слушатели событий для нажатия на кнопку Корзина, чтобы открывать ее и закрывать
+}
 
-// const render = productsList => {
-//     const productsElements = productsList.map(product => renderProduct(product.title, product.price));
-//     document.querySelector('.products').innerHTML = productsElements;
-// };
-
-// render(products);
+class CartElem extends Product {
+    constructor(product) {
+        super(product);
+    }
+    // remove() метод будет реагировать на нажатие кнопки удалить и будет удалять товар из корзины
+}
